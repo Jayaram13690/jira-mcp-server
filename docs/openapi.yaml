@@ -1,0 +1,1143 @@
+openapi: 3.1.0
+info:
+  title: Jira MCP Server
+  version: 1.0.0
+  summary: MCP (JSON-RPC 2.0) adapter over Jira Cloud REST API v3.
+  description: 'Contract for the Jira MCP server. **Human + AI maintained; spec.md is the source of truth for behaviour.**
+
+
+    An MCP server is a JSON-RPC endpoint, not a set of REST routes. This document therefore describes:
+
+    1. the two HTTP routes the server really exposes (`POST /mcp/jira`, `GET /mcp/jira/health`);
+
+    2. each of the 13 tools as a named `tools/call` request body under `components.schemas.*Arguments` (generated
+    from the live FastMCP tool schemas) with its result schema `*Result`;
+
+    3. `x-mcp-tools`, an index tying every tool to its spec requirement, its read/write tag and the upstream Jira
+    calls it makes.
+
+
+    Properties marked `x-target-*` are constraints required by spec.md that the code does not yet enforce. Results
+    are JSON **strings** inside `content[0].text` (FR-21).
+
+
+    **Auth:** none (SEC-1 unresolved). Do not expose to the internet.'
+servers:
+- url: http://localhost:9002
+  description: Local (JIRA_PORT, default 9002)
+tags:
+- name: mcp
+  description: MCP JSON-RPC transport
+- name: ops
+  description: Operations
+paths:
+  /mcp/jira:
+    post:
+      tags:
+      - mcp
+      operationId: mcpJsonRpc
+      summary: MCP streamable-HTTP endpoint (initialize, tools/list, tools/call)
+      description: Send a JSON-RPC 2.0 request. Real MCP clients negotiate `initialize` and may receive `text/event-stream`;
+        both content types are accepted in `Accept`. A tool failure is **HTTP 200** with `result.isError=true`,
+        not an HTTP error.
+      parameters:
+      - name: Accept
+        in: header
+        required: true
+        schema:
+          type: string
+          example: application/json, text/event-stream
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JsonRpcRequest'
+            examples:
+              jira-createIssue:
+                summary: jira-createIssue (FR-1)
+                value:
+                  jsonrpc: '2.0'
+                  id: 1
+                  method: tools/call
+                  params:
+                    name: jira-createIssue
+                    arguments:
+                      project_key: RET
+                      summary: Checkout button unresponsive
+                      issue_type: Bug
+                      priority: High
+                      labels:
+                      - frontend
+              jira-updateIssue:
+                summary: jira-updateIssue (FR-2)
+                value:
+                  jsonrpc: '2.0'
+                  id: 1
+                  method: tools/call
+                  params:
+                    name: jira-updateIssue
+                    arguments:
+                      issue_key: RET-12
+                      priority: Highest
+              jira-getIssue:
+                summary: jira-getIssue (FR-3)
+                value:
+                  jsonrpc: '2.0'
+                  id: 1
+                  method: tools/call
+                  params:
+                    name: jira-getIssue
+                    arguments:
+                      issue_key: RET-12
+              jira-getIssuesBulk:
+                summary: jira-getIssuesBulk (FR-4)
+                value:
+                  jsonrpc: '2.0'
+                  id: 1
+                  method: tools/call
+                  params:
+                    name: jira-getIssuesBulk
+                    arguments:
+                      project_key: RET-424
+                      max_results: 50
+              jira-createIssuesBulk:
+                summary: jira-createIssuesBulk (FR-5)
+                value:
+                  jsonrpc: '2.0'
+                  id: 1
+                  method: tools/call
+                  params:
+                    name: jira-createIssuesBulk
+                    arguments:
+                      issues:
+                      - project_key: RET
+                        summary: Story A
+                        issue_type: story
+                        parent: RET-424
+                      - project_key: RET
+                        summary: Story B
+              jira-linkIssueToEpic:
+                summary: jira-linkIssueToEpic (FR-6)
+                value:
+                  jsonrpc: '2.0'
+                  id: 1
+                  method: tools/call
+                  params:
+                    name: jira-linkIssueToEpic
+                    arguments:
+                      issue_key: RET-12
+                      epic_key: RET-424
+              jira-addComment:
+                summary: jira-addComment (FR-7)
+                value:
+                  jsonrpc: '2.0'
+                  id: 1
+                  method: tools/call
+                  params:
+                    name: jira-addComment
+                    arguments:
+                      issue_key: RET-12
+                      comment: Reproduced on staging.
+              jira-addCommentWithLinks:
+                summary: jira-addCommentWithLinks (FR-8)
+                value:
+                  jsonrpc: '2.0'
+                  id: 1
+                  method: tools/call
+                  params:
+                    name: jira-addCommentWithLinks
+                    arguments:
+                      issue_key: RET-12
+                      intro_text: 'Test cases: '
+                      links:
+                      - text: C101
+                        url: https://example.testrail.io/index.php?/cases/view/101
+              jira-searchIssues:
+                summary: jira-searchIssues (FR-9)
+                value:
+                  jsonrpc: '2.0'
+                  id: 1
+                  method: tools/call
+                  params:
+                    name: jira-searchIssues
+                    arguments:
+                      jql: project = RET AND status = "In Progress"
+                      max_results: 25
+              jira-updateLabels:
+                summary: jira-updateLabels (FR-10)
+                value:
+                  jsonrpc: '2.0'
+                  id: 1
+                  method: tools/call
+                  params:
+                    name: jira-updateLabels
+                    arguments:
+                      issue_key: RET-12
+                      add_labels:
+                      - regression
+                      remove_labels:
+                      - triage
+              jira-addRemoteLink:
+                summary: jira-addRemoteLink (FR-11)
+                value:
+                  jsonrpc: '2.0'
+                  id: 1
+                  method: tools/call
+                  params:
+                    name: jira-addRemoteLink
+                    arguments:
+                      issue_key: RET-12
+                      url: https://example.testrail.io/index.php?/cases/view/101
+                      title: C101 Login works
+              jira-addAttachment:
+                summary: jira-addAttachment (FR-12)
+                value:
+                  jsonrpc: '2.0'
+                  id: 1
+                  method: tools/call
+                  params:
+                    name: jira-addAttachment
+                    arguments:
+                      issue_key: RET-12
+                      content_base64: JVBERi0xLjQK
+                      filename: report.pdf
+                      mime_type: application/pdf
+              jira-transitionIssue:
+                summary: jira-transitionIssue (FR-13)
+                value:
+                  jsonrpc: '2.0'
+                  id: 1
+                  method: tools/call
+                  params:
+                    name: jira-transitionIssue
+                    arguments:
+                      issue_key: RET-12
+                      target_status: Done
+              tools_list:
+                summary: List the 13 tools
+                value:
+                  jsonrpc: '2.0'
+                  id: 1
+                  method: tools/list
+      responses:
+        '200':
+          description: JSON-RPC response (success, tool error, or protocol error).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonRpcResponse'
+            text/event-stream:
+              schema:
+                type: string
+        '400':
+          description: Malformed request.
+        '406':
+          description: Missing `Accept` for application/json and text/event-stream.
+  /mcp/jira/health:
+    get:
+      tags:
+      - ops
+      operationId: health
+      summary: Liveness (FR-17). Does not call Jira.
+      responses:
+        '200':
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+components:
+  schemas:
+    CreateissueArguments:
+      type: object
+      properties:
+        project_key:
+          description: Target Jira project key (e.g., 'RET'). Required - there is no default project.
+          type: string
+          minLength: 1
+          x-target-pattern: ^[A-Za-z][A-Za-z0-9_]*$
+          x-spec-requirement: FR-14
+        summary:
+          description: Short title for the issue
+          type: string
+        description:
+          default: ''
+          description: Detailed description (optional)
+          type: string
+        issue_type:
+          default: story
+          description: Jira issue type (e.g., 'Task', 'Sub-task', 'Story', 'Bug', 'Epic', 'Feature', 'Chore)
+          type: string
+        priority:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          description: Priority (e.g., 'Highest', 'High', 'Medium', 'Low', 'Lowest')
+        labels:
+          anyOf:
+          - items: {}
+            type: array
+          - type: 'null'
+          default: null
+          description: List of labels to add to the issue (e.g., ['backend', 'urgent'])
+        parent:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          description: Parent issue key (e.g., epic key like 'PROJ-123') to link this issue at creation time
+        epic_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          description: Name of the epic (required if issue_type is 'epic')
+      required:
+      - project_key
+      - summary
+      description: Creates a new Jira issue in the given project. Use 'epic' as the issue_type to create an Epic.
+        Supports optional priority, epic name, labels, and parent (to link to an epic or parent issue at creation
+        time). project_key is required - there is no default project, so the caller must always specify which Jira
+        project the issue belongs to.
+      x-spec-requirement: FR-1
+    UpdateissueArguments:
+      type: object
+      properties:
+        issue_key:
+          description: Issue key to update
+          type: string
+          x-target-pattern: ^[A-Za-z][A-Za-z0-9_]*-[0-9]+$
+        summary:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          description: title for the issue to update
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          description: Detailed description to update
+        priority:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          description: Priority to update (e.g., 'Highest', 'High', 'Medium', 'Low', 'Lowest')
+      required:
+      - issue_key
+      description: Updates summary, description, or priority for an existing Jira issue. Provide at least one field
+        to update.
+      x-spec-requirement: FR-2
+    GetissueArguments:
+      type: object
+      properties:
+        issue_key:
+          description: Jira issue key
+          type: string
+          x-target-pattern: ^[A-Za-z][A-Za-z0-9_]*-[0-9]+$
+      required:
+      - issue_key
+      description: Fetches details of a specific Jira issue by its issue key. Returns key, summary, status, priority,
+        description, labels, and parent (if linked to a parent issue/epic).
+      x-spec-requirement: FR-3
+    GetissuesbulkArguments:
+      type: object
+      properties:
+        project_key:
+          description: Project key (e.g., 'RET') to fetch all project issues, OR Epic key (e.g., 'RET-424') to fetch
+            epic and its children
+          type: string
+          minLength: 1
+          x-target-pattern: ^[A-Za-z][A-Za-z0-9_]*$
+          x-spec-requirement: FR-14
+        max_results:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          default: null
+          description: Maximum number of results to return. If not specified, fetches ALL issues using automatic
+            pagination.
+        fetch_all:
+          default: true
+          description: 'If True, automatically paginates through all issues (default: True). Set to False to fetch
+            only first 100.'
+          type: boolean
+      required:
+      - project_key
+      description: 'Fetches detailed information for issues from a Jira project OR epic. Supports TWO modes: 1)
+        Project mode: Provide project key (e.g., ''RET'') to fetch ALL issues in the project. 2) Epic mode: Provide
+        epic key (e.g., ''RET-424'') to fetch the epic AND all child issues under it. Returns key, summary, status,
+        priority, description, labels, parent, issue_type, created, and updated for each issue. Automatically paginates
+        through all issues in batches of 100.'
+      x-spec-requirement: FR-4
+    CreateissuesbulkArguments:
+      type: object
+      properties:
+        issues:
+          description: 'List of issue objects to create. Each object must contain: project_key (required, no default
+            project), summary (required), description (optional), issue_type (optional, default=''story''), priority
+            (optional), epic_name (optional, for epics only), labels (optional, list of strings), parent (optional,
+            parent issue key)'
+          items: {}
+          type: array
+      required:
+      - issues
+      description: Creates multiple Jira issues in bulk. Accepts a list of issue objects, each with project_key
+        (required) and summary (required), plus optional description, issue_type, priority, epic_name (for epics),
+        labels, and parent (to link to an epic or parent issue). There is no default project - every issue in the
+        list must specify its own project_key (they may target different projects in the same call).
+      x-spec-requirement: FR-5
+    LinkissuetoepicArguments:
+      type: object
+      properties:
+        issue_key:
+          description: Story/task issue key
+          type: string
+          x-target-pattern: ^[A-Za-z][A-Za-z0-9_]*-[0-9]+$
+        epic_key:
+          description: Epic issue key
+          type: string
+          x-target-pattern: ^[A-Za-z][A-Za-z0-9_]*-[0-9]+$
+      required:
+      - issue_key
+      - epic_key
+      description: Links an existing Jira issue (story or task) to a specified Epic.
+      x-spec-requirement: FR-6
+    AddcommentArguments:
+      type: object
+      properties:
+        issue_key:
+          description: Jira issue key
+          type: string
+          x-target-pattern: ^[A-Za-z][A-Za-z0-9_]*-[0-9]+$
+        comment:
+          description: Text to add as comment
+          type: string
+      required:
+      - issue_key
+      - comment
+      description: Adds a comment to an existing Jira issue.
+      x-spec-requirement: FR-7
+    AddcommentwithlinksArguments:
+      type: object
+      properties:
+        issue_key:
+          description: Jira issue key
+          type: string
+          x-target-pattern: ^[A-Za-z][A-Za-z0-9_]*-[0-9]+$
+        intro_text:
+          description: Plain text shown before the links
+          type: string
+        links:
+          description: List of {text, url} objects, each rendered as a clickable link
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+      required:
+      - issue_key
+      - intro_text
+      - links
+      description: Adds a comment to a Jira issue where specific text segments render as real clickable links, e.g.
+        linking each TestRail case ID to its actual case page.
+      x-spec-requirement: FR-8
+    SearchissuesArguments:
+      type: object
+      properties:
+        jql:
+          description: JQL query
+          type: string
+        max_results:
+          default: 0
+          description: Optional cap on results - 0 (default) fetches everything
+          type: integer
+      required:
+      - jql
+      description: Searches Jira using a JQL query. Returns ALL matching issues (paginates automatically) unless
+        max_results is explicitly set to cap it.
+      x-spec-requirement: FR-9
+    UpdatelabelsArguments:
+      type: object
+      properties:
+        issue_key:
+          description: Jira issue key
+          type: string
+          x-target-pattern: ^[A-Za-z][A-Za-z0-9_]*-[0-9]+$
+        add_labels:
+          default: []
+          description: Labels to add
+          items:
+            type: string
+          type: array
+        remove_labels:
+          default: []
+          description: Labels to remove
+          items:
+            type: string
+          type: array
+      required:
+      - issue_key
+      description: Adds and/or removes specific labels on a Jira issue, without touching any other labels already
+        there.
+      x-spec-requirement: FR-10
+    AddremotelinkArguments:
+      type: object
+      properties:
+        issue_key:
+          description: Jira issue key
+          type: string
+          x-target-pattern: ^[A-Za-z][A-Za-z0-9_]*-[0-9]+$
+        url:
+          description: The external URL to link to
+          type: string
+        title:
+          description: Display title for the link
+          type: string
+      required:
+      - issue_key
+      - url
+      - title
+      description: Adds a real clickable remote link (e.g. to a TestRail case) to a Jira issue - not a text comment,
+        a proper link object.
+      x-spec-requirement: FR-11
+    AddattachmentArguments:
+      type: object
+      properties:
+        issue_key:
+          description: Jira issue key
+          type: string
+          x-target-pattern: ^[A-Za-z][A-Za-z0-9_]*-[0-9]+$
+        file_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          description: Path to a local file to attach (mutually exclusive with content_base64)
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          description: Filename for the attachment. Optional with file_path (defaults to the file's own name); required
+            with content_base64.
+        content_base64:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          description: Base64-encoded file content to attach directly, without a local file (mutually exclusive
+            with file_path)
+        mime_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          description: MIME type of the content, e.g. 'application/pdf' (only used with content_base64)
+      required:
+      - issue_key
+      description: Attaches a file to an existing Jira issue (Epics included). Provide EITHER file_path (a path
+        to a local file on this server's disk) OR content_base64 + filename (in-memory bytes, base64-encoded — use
+        this for generated content like a PDF report that never touches disk). Exactly one of file_path / content_base64
+        is required.
+      x-spec-requirement: FR-12
+    TransitionissueArguments:
+      type: object
+      properties:
+        issue_key:
+          description: Jira issue key to transition (e.g., 'PROJ-123')
+          type: string
+          x-target-pattern: ^[A-Za-z][A-Za-z0-9_]*-[0-9]+$
+        target_status:
+          description: Name of the status to move the issue to (e.g., 'Done')
+          type: string
+      required:
+      - issue_key
+      - target_status
+      description: 'Moves a Jira issue to a target status (e.g. ''In Progress'' -> ''Done'') by resolving the real
+        Jira transition ID from the issue''s available transitions. Idempotent: if the issue is already in the target
+        status, returns result ''already_done'' without changing anything. Fails with a clear error if no transition
+        to the target status is available.'
+      x-spec-requirement: FR-13
+    ToolErrorText:
+      type: string
+      description: 'Text of an MCP tool error (isError=true). TARGET format (ERR-2): "<CODE>: <message>". Today
+        the text is free-form (see spec §5).'
+      example: 'VALIDATION_ERROR: project_key is required and must be a non-empty string.'
+    ErrorCode:
+      type: string
+      enum:
+      - VALIDATION_ERROR
+      - NOT_FOUND
+      - AUTHENTICATION_ERROR
+      - AUTHORIZATION_ERROR
+      - CONFLICT
+      - RATE_LIMITED
+      - JIRA_SERVICE_ERROR
+      - TIMEOUT
+      - CONNECTION_ERROR
+      x-spec-requirement: ERR-2
+    IssueRef:
+      type: object
+      properties:
+        key:
+          type: string
+        summary:
+          type: string
+    CreateIssueResult:
+      type: object
+      properties:
+        message:
+          type: string
+        key:
+          type: string
+        url:
+          type: string
+          format: uri
+        summary:
+          type: string
+        type:
+          type: string
+      required:
+      - message
+      - key
+      - url
+      - summary
+      - type
+    UpdateIssueResult:
+      type: object
+      properties:
+        message:
+          type: string
+        key:
+          type: string
+        updated_fields:
+          type: array
+          items:
+            type: string
+      required:
+      - message
+      - key
+      - updated_fields
+    GetIssueResult:
+      type: object
+      properties:
+        key:
+          type: string
+        summary:
+          type: string
+        status:
+          type: string
+        priority:
+          type: string
+        description:
+          type: string
+          description: Flattened plain text, or "No description."
+        labels:
+          type: array
+          items:
+            type: string
+        parent:
+          oneOf:
+          - $ref: '#/components/schemas/IssueRef'
+          - type: 'null'
+      required:
+      - key
+      - summary
+      - status
+      - priority
+      - description
+      - labels
+      - parent
+    BulkIssue:
+      type: object
+      properties:
+        key:
+          type: string
+        summary:
+          type: string
+        status:
+          type: string
+        priority:
+          type: string
+        description:
+          type: string
+        labels:
+          type: array
+          items:
+            type: string
+        parent:
+          oneOf:
+          - $ref: '#/components/schemas/IssueRef'
+          - type: 'null'
+        issue_type:
+          type: string
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+    GetIssuesBulkResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        project_key:
+          type: string
+        total_retrieved:
+          type: integer
+        api_calls_made:
+          type: integer
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkIssue'
+        fetching_strategy:
+          type: string
+        fetch_mode:
+          type: string
+        page_size:
+          type: integer
+      required:
+      - success
+      description: 'On failure today this tool returns {success:false, error} as a normal result (DEF-14). Target:
+        raise a tool error (ERR-1).'
+    CreatedIssue:
+      type: object
+      properties:
+        key:
+          type: string
+        url:
+          type: string
+          format: uri
+        summary:
+          type: string
+    BulkItemError:
+      type: object
+      properties:
+        index:
+          type:
+          - integer
+          - 'null'
+        error:
+          type: object
+          additionalProperties: true
+    CreateIssuesBulkResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        created_issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreatedIssue'
+        total_requested:
+          type: integer
+        total_created:
+          type: integer
+        errors:
+          oneOf:
+          - type: array
+            items:
+              $ref: '#/components/schemas/BulkItemError'
+          - type: 'null'
+        failed_at_index:
+          type: integer
+          description: Present only on a pre-flight validation failure.
+        error:
+          type: string
+      required:
+      - success
+    LinkEpicResult:
+      type: object
+      properties:
+        message:
+          type: string
+        issue:
+          type: string
+        epic:
+          type: string
+      required:
+      - message
+      - issue
+      - epic
+    AddCommentResult:
+      type: object
+      properties:
+        message:
+          type: string
+        issue:
+          type: string
+        comment:
+          type: string
+          description: Echoed today; target is to omit (FR-7).
+      required:
+      - message
+      - issue
+    AddCommentWithLinksResult:
+      type: object
+      properties:
+        message:
+          type: string
+        issue:
+          type: string
+      required:
+      - message
+      - issue
+    SearchHit:
+      type: object
+      properties:
+        key:
+          type: string
+        summary:
+          type: string
+        status:
+          type: string
+        priority:
+          type: string
+        description:
+          type: string
+        labels:
+          type: array
+          items:
+            type: string
+        url:
+          type: string
+          format: uri
+    SearchIssuesResult:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchHit'
+      required:
+      - results
+    UpdateLabelsResult:
+      type: object
+      properties:
+        message:
+          type: string
+        key:
+          type: string
+        added:
+          type: array
+          items:
+            type: string
+        removed:
+          type: array
+          items:
+            type: string
+      required:
+      - message
+      - key
+      - added
+      - removed
+    AddRemoteLinkResult:
+      type: object
+      properties:
+        message:
+          type: string
+        key:
+          type: string
+        url:
+          type: string
+          format: uri
+        title:
+          type: string
+      required:
+      - message
+      - key
+      - url
+      - title
+    AddAttachmentResult:
+      type: object
+      properties:
+        message:
+          type: string
+        key:
+          type: string
+        filename:
+          type: string
+      required:
+      - message
+      - key
+      - filename
+    TransitionIssueResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+        result:
+          type: string
+          enum:
+          - transitioned
+          - already_done
+        message:
+          type: string
+        issue:
+          type: string
+        from_status:
+          type: string
+        to_status:
+          type: string
+        transition_id:
+          type: string
+          description: Present only when result is "transitioned".
+      required:
+      - success
+      - result
+      - message
+      - issue
+      - from_status
+      - to_status
+    Health:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - healthy
+        service:
+          type: string
+          enum:
+          - jira-mcp-server
+      required:
+      - status
+      - service
+    JsonRpcRequest:
+      type: object
+      properties:
+        jsonrpc:
+          type: string
+          enum:
+          - '2.0'
+        id:
+          oneOf:
+          - type: integer
+          - type: string
+        method:
+          type: string
+          enum:
+          - initialize
+          - tools/list
+          - tools/call
+        params:
+          type: object
+          additionalProperties: true
+      required:
+      - jsonrpc
+      - method
+    ToolCallParams:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+          - jira-addAttachment
+          - jira-addComment
+          - jira-addCommentWithLinks
+          - jira-addRemoteLink
+          - jira-createIssue
+          - jira-createIssuesBulk
+          - jira-getIssue
+          - jira-getIssuesBulk
+          - jira-linkIssueToEpic
+          - jira-searchIssues
+          - jira-transitionIssue
+          - jira-updateIssue
+          - jira-updateLabels
+        arguments:
+          type: object
+          additionalProperties: true
+      required:
+      - name
+      - arguments
+    ToolCallResult:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum:
+                - text
+              text:
+                type: string
+                description: JSON-encoded tool result (FR-21) or, when isError is true, the error text.
+            required:
+            - type
+            - text
+        isError:
+          type: boolean
+      required:
+      - content
+    JsonRpcResponse:
+      type: object
+      properties:
+        jsonrpc:
+          type: string
+          enum:
+          - '2.0'
+        id:
+          oneOf:
+          - type: integer
+          - type: string
+          - type: 'null'
+        result:
+          type: object
+          additionalProperties: true
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          required:
+          - code
+          - message
+      required:
+      - jsonrpc
+x-mcp-tools:
+- name: jira-createIssue
+  requirement: FR-1
+  tags:
+  - jira
+  - write
+  arguments: '#/components/schemas/CreateissueArguments'
+  result: '#/components/schemas/CreateIssueResult'
+  upstream:
+  - GET /rest/api/3/field (once)
+  - GET /rest/api/3/issue/createmeta?projectKeys={project}
+  - GET /rest/api/3/priority
+  - POST /rest/api/3/issue
+- name: jira-updateIssue
+  requirement: FR-2
+  tags:
+  - jira
+  - write
+  arguments: '#/components/schemas/UpdateissueArguments'
+  result: '#/components/schemas/UpdateIssueResult'
+  upstream:
+  - GET /rest/api/3/priority (only if priority given)
+  - PUT /rest/api/3/issue/{key}
+- name: jira-getIssue
+  requirement: FR-3
+  tags:
+  - jira
+  - read
+  arguments: '#/components/schemas/GetissueArguments'
+  result: '#/components/schemas/GetIssueResult'
+  upstream:
+  - GET /rest/api/3/issue/{key}
+- name: jira-getIssuesBulk
+  requirement: FR-4
+  tags:
+  - bulk
+  - jira
+  - read
+  arguments: '#/components/schemas/GetissuesbulkArguments'
+  result: '#/components/schemas/GetIssuesBulkResult'
+  upstream:
+  - GET /rest/api/3/issue/{key} (epic mode only)
+  - GET /rest/api/3/search/jql (paged, 100/page)
+- name: jira-createIssuesBulk
+  requirement: FR-5
+  tags:
+  - bulk
+  - jira
+  - write
+  arguments: '#/components/schemas/CreateissuesbulkArguments'
+  result: '#/components/schemas/CreateIssuesBulkResult'
+  upstream:
+  - GET /rest/api/3/field (once)
+  - GET /rest/api/3/priority
+  - GET /rest/api/3/issue/createmeta (per distinct project)
+  - POST /rest/api/3/issue/bulk
+- name: jira-linkIssueToEpic
+  requirement: FR-6
+  tags:
+  - jira
+  - write
+  arguments: '#/components/schemas/LinkissuetoepicArguments'
+  result: '#/components/schemas/LinkEpicResult'
+  upstream:
+  - GET /rest/api/3/field (once)
+  - PUT /rest/api/3/issue/{key}
+- name: jira-addComment
+  requirement: FR-7
+  tags:
+  - jira
+  - write
+  arguments: '#/components/schemas/AddcommentArguments'
+  result: '#/components/schemas/AddCommentResult'
+  upstream:
+  - POST /rest/api/3/issue/{key}/comment
+- name: jira-addCommentWithLinks
+  requirement: FR-8
+  tags:
+  - jira
+  - write
+  arguments: '#/components/schemas/AddcommentwithlinksArguments'
+  result: '#/components/schemas/AddCommentWithLinksResult'
+  upstream:
+  - POST /rest/api/3/issue/{key}/comment
+- name: jira-searchIssues
+  requirement: FR-9
+  tags:
+  - jira
+  - read
+  arguments: '#/components/schemas/SearchissuesArguments'
+  result: '#/components/schemas/SearchIssuesResult'
+  upstream:
+  - GET /rest/api/3/search/jql (paged, 100/page, max 50 pages)
+- name: jira-updateLabels
+  requirement: FR-10
+  tags:
+  - jira
+  - write
+  arguments: '#/components/schemas/UpdatelabelsArguments'
+  result: '#/components/schemas/UpdateLabelsResult'
+  upstream:
+  - PUT /rest/api/3/issue/{key}
+- name: jira-addRemoteLink
+  requirement: FR-11
+  tags:
+  - jira
+  - write
+  arguments: '#/components/schemas/AddremotelinkArguments'
+  result: '#/components/schemas/AddRemoteLinkResult'
+  upstream:
+  - POST /rest/api/3/issue/{key}/remotelink
+- name: jira-addAttachment
+  requirement: FR-12
+  tags:
+  - jira
+  - write
+  arguments: '#/components/schemas/AddattachmentArguments'
+  result: '#/components/schemas/AddAttachmentResult'
+  upstream:
+  - 'POST /rest/api/3/issue/{key}/attachments (multipart, X-Atlassian-Token: no-check)'
+- name: jira-transitionIssue
+  requirement: FR-13
+  tags:
+  - jira
+  - write
+  arguments: '#/components/schemas/TransitionissueArguments'
+  result: '#/components/schemas/TransitionIssueResult'
+  upstream:
+  - GET /rest/api/3/issue/{key}?fields=status
+  - GET /rest/api/3/issue/{key}/transitions
+  - POST /rest/api/3/issue/{key}/transitions

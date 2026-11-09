@@ -1,0 +1,1297 @@
+{
+ "all_thirteen_reversed": {
+  "attribute_absent": false,
+  "enabled": [
+   "jira-transitionIssue",
+   "jira-addAttachment",
+   "jira-addRemoteLink",
+   "jira-updateLabels",
+   "jira-searchIssues",
+   "jira-addCommentWithLinks",
+   "jira-addComment",
+   "jira-linkIssueToEpic",
+   "jira-createIssuesBulk",
+   "jira-getIssuesBulk",
+   "jira-getIssue",
+   "jira-updateIssue",
+   "jira-createIssue"
+  ],
+  "logs": [
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  register_tools"
+   ],
+   [
+    "jira-mcp-server",
+    "INFO",
+    "Registering JIRA tools: ['jira-transitionIssue', 'jira-addAttachment', 'jira-addRemoteLink', 'jira-updateLabels', 'jira-searchIssues', 'jira-addCommentWithLinks', 'jira-addComment', 'jira-linkIssueToEpic', 'jira-createIssuesBulk', 'jira-getIssuesBulk', 'jira-getIssue', 'jira-updateIssue', 'jira-createIssue']"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_transition_issue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_transition_issue"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-transitionIssue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_add_attachment_tool"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_add_attachment_tool"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-addAttachment"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_add_remote_link"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_add_remote_link"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-addRemoteLink"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_update_labels"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_update_labels"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-updateLabels"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_search_issues"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_search_issues"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-searchIssues"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_add_comment_with_links"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_add_comment_with_links"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-addCommentWithLinks"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_add_comment"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_add_comment"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-addComment"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_link_issue_to_epic_tool"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_link_issue_to_epic_tool"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-linkIssueToEpic"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_create_issues_bulk_tool"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_create_issues_bulk_tool"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-createIssuesBulk"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_get_issues_bulk"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_get_issues_bulk"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-getIssuesBulk"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_get_issue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_get_issue"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-getIssue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_update_issue_tool"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_update_issue_tool"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-updateIssue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_create_issue_tool"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_create_issue_tool"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-createIssue"
+   ],
+   [
+    "jira-mcp-server",
+    "INFO",
+    "Successfully registered 13 JIRA tools"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : register_tools"
+   ]
+  ],
+  "registered_in_order": [
+   "jira-transitionIssue",
+   "jira-addAttachment",
+   "jira-addRemoteLink",
+   "jira-updateLabels",
+   "jira-searchIssues",
+   "jira-addCommentWithLinks",
+   "jira-addComment",
+   "jira-linkIssueToEpic",
+   "jira-createIssuesBulk",
+   "jira-getIssuesBulk",
+   "jira-getIssue",
+   "jira-updateIssue",
+   "jira-createIssue"
+  ]
+ },
+ "attribute_absent_falls_back_to_default": {
+  "attribute_absent": true,
+  "enabled": null,
+  "logs": [
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  register_tools"
+   ],
+   [
+    "jira-mcp-server",
+    "INFO",
+    "Registering JIRA tools: ['jira-createIssue', 'jira-updateIssue', 'jira-getIssue', 'jira-getIssuesBulk', 'jira-createIssuesBulk', 'jira-linkIssueToEpic', 'jira-addComment', 'jira-addCommentWithLinks', 'jira-searchIssues', 'jira-updateLabels', 'jira-addRemoteLink', 'jira-addAttachment', 'jira-transitionIssue']"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_create_issue_tool"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_create_issue_tool"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-createIssue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_update_issue_tool"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_update_issue_tool"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-updateIssue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_get_issue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_get_issue"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-getIssue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_get_issues_bulk"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_get_issues_bulk"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-getIssuesBulk"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_create_issues_bulk_tool"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_create_issues_bulk_tool"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-createIssuesBulk"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_link_issue_to_epic_tool"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_link_issue_to_epic_tool"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-linkIssueToEpic"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_add_comment"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_add_comment"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-addComment"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_add_comment_with_links"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_add_comment_with_links"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-addCommentWithLinks"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_search_issues"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_search_issues"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-searchIssues"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_update_labels"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_update_labels"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-updateLabels"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_add_remote_link"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_add_remote_link"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-addRemoteLink"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_add_attachment_tool"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_add_attachment_tool"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-addAttachment"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_transition_issue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_transition_issue"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-transitionIssue"
+   ],
+   [
+    "jira-mcp-server",
+    "INFO",
+    "Successfully registered 13 JIRA tools"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : register_tools"
+   ]
+  ],
+  "registered_in_order": [
+   "jira-createIssue",
+   "jira-updateIssue",
+   "jira-getIssue",
+   "jira-getIssuesBulk",
+   "jira-createIssuesBulk",
+   "jira-linkIssueToEpic",
+   "jira-addComment",
+   "jira-addCommentWithLinks",
+   "jira-searchIssues",
+   "jira-updateLabels",
+   "jira-addRemoteLink",
+   "jira-addAttachment",
+   "jira-transitionIssue"
+  ]
+ },
+ "default_none": {
+  "attribute_absent": false,
+  "enabled": null,
+  "logs": [
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  register_tools"
+   ],
+   [
+    "jira-mcp-server",
+    "INFO",
+    "Registering JIRA tools: ['jira-createIssue', 'jira-updateIssue', 'jira-getIssue', 'jira-getIssuesBulk', 'jira-createIssuesBulk', 'jira-linkIssueToEpic', 'jira-addComment', 'jira-addCommentWithLinks', 'jira-searchIssues', 'jira-updateLabels', 'jira-addRemoteLink', 'jira-addAttachment', 'jira-transitionIssue']"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_create_issue_tool"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_create_issue_tool"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-createIssue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_update_issue_tool"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_update_issue_tool"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-updateIssue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_get_issue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_get_issue"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-getIssue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_get_issues_bulk"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_get_issues_bulk"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-getIssuesBulk"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_create_issues_bulk_tool"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_create_issues_bulk_tool"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-createIssuesBulk"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_link_issue_to_epic_tool"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_link_issue_to_epic_tool"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-linkIssueToEpic"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_add_comment"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_add_comment"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-addComment"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_add_comment_with_links"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_add_comment_with_links"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-addCommentWithLinks"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_search_issues"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_search_issues"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-searchIssues"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_update_labels"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_update_labels"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-updateLabels"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_add_remote_link"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_add_remote_link"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-addRemoteLink"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_add_attachment_tool"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_add_attachment_tool"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-addAttachment"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_transition_issue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_transition_issue"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-transitionIssue"
+   ],
+   [
+    "jira-mcp-server",
+    "INFO",
+    "Successfully registered 13 JIRA tools"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : register_tools"
+   ]
+  ],
+  "registered_in_order": [
+   "jira-createIssue",
+   "jira-updateIssue",
+   "jira-getIssue",
+   "jira-getIssuesBulk",
+   "jira-createIssuesBulk",
+   "jira-linkIssueToEpic",
+   "jira-addComment",
+   "jira-addCommentWithLinks",
+   "jira-searchIssues",
+   "jira-updateLabels",
+   "jira-addRemoteLink",
+   "jira-addAttachment",
+   "jira-transitionIssue"
+  ]
+ },
+ "duplicate_name": {
+  "attribute_absent": false,
+  "enabled": [
+   "jira-getIssue",
+   "jira-getIssue"
+  ],
+  "logs": [
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  register_tools"
+   ],
+   [
+    "jira-mcp-server",
+    "INFO",
+    "Registering JIRA tools: ['jira-getIssue', 'jira-getIssue']"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_get_issue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_get_issue"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-getIssue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_get_issue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_get_issue"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-getIssue"
+   ],
+   [
+    "jira-mcp-server",
+    "INFO",
+    "Successfully registered 2 JIRA tools"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : register_tools"
+   ]
+  ],
+  "registered_in_order": [
+   "jira-getIssue"
+  ]
+ },
+ "empty_list_falls_back_to_default": {
+  "attribute_absent": false,
+  "enabled": [],
+  "logs": [
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  register_tools"
+   ],
+   [
+    "jira-mcp-server",
+    "INFO",
+    "Registering JIRA tools: ['jira-createIssue', 'jira-updateIssue', 'jira-getIssue', 'jira-getIssuesBulk', 'jira-createIssuesBulk', 'jira-linkIssueToEpic', 'jira-addComment', 'jira-addCommentWithLinks', 'jira-searchIssues', 'jira-updateLabels', 'jira-addRemoteLink', 'jira-addAttachment', 'jira-transitionIssue']"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_create_issue_tool"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_create_issue_tool"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-createIssue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_update_issue_tool"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_update_issue_tool"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-updateIssue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_get_issue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_get_issue"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-getIssue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_get_issues_bulk"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_get_issues_bulk"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-getIssuesBulk"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_create_issues_bulk_tool"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_create_issues_bulk_tool"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-createIssuesBulk"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_link_issue_to_epic_tool"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_link_issue_to_epic_tool"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-linkIssueToEpic"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_add_comment"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_add_comment"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-addComment"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_add_comment_with_links"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_add_comment_with_links"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-addCommentWithLinks"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_search_issues"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_search_issues"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-searchIssues"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_update_labels"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_update_labels"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-updateLabels"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_add_remote_link"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_add_remote_link"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-addRemoteLink"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_add_attachment_tool"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_add_attachment_tool"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-addAttachment"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_transition_issue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_transition_issue"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-transitionIssue"
+   ],
+   [
+    "jira-mcp-server",
+    "INFO",
+    "Successfully registered 13 JIRA tools"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : register_tools"
+   ]
+  ],
+  "registered_in_order": [
+   "jira-createIssue",
+   "jira-updateIssue",
+   "jira-getIssue",
+   "jira-getIssuesBulk",
+   "jira-createIssuesBulk",
+   "jira-linkIssueToEpic",
+   "jira-addComment",
+   "jira-addCommentWithLinks",
+   "jira-searchIssues",
+   "jira-updateLabels",
+   "jira-addRemoteLink",
+   "jira-addAttachment",
+   "jira-transitionIssue"
+  ]
+ },
+ "one_tool": {
+  "attribute_absent": false,
+  "enabled": [
+   "jira-transitionIssue"
+  ],
+  "logs": [
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  register_tools"
+   ],
+   [
+    "jira-mcp-server",
+    "INFO",
+    "Registering JIRA tools: ['jira-transitionIssue']"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_transition_issue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_transition_issue"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-transitionIssue"
+   ],
+   [
+    "jira-mcp-server",
+    "INFO",
+    "Successfully registered 1 JIRA tools"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : register_tools"
+   ]
+  ],
+  "registered_in_order": [
+   "jira-transitionIssue"
+  ]
+ },
+ "only_unknown_names": {
+  "attribute_absent": false,
+  "enabled": [
+   "jira-nope"
+  ],
+  "logs": [
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  register_tools"
+   ],
+   [
+    "jira-mcp-server",
+    "INFO",
+    "Registering JIRA tools: ['jira-nope']"
+   ],
+   [
+    "jira-mcp-server",
+    "WARNING",
+    "Unknown tool requested: jira-nope. Available tools: ['jira-createIssue', 'jira-updateIssue', 'jira-linkIssueToEpic', 'jira-addComment', 'jira-addCommentWithLinks', 'jira-getIssue', 'jira-getIssuesBulk', 'jira-searchIssues', 'jira-createIssuesBulk', 'jira-updateLabels', 'jira-addRemoteLink', 'jira-addAttachment', 'jira-transitionIssue']"
+   ],
+   [
+    "jira-mcp-server",
+    "INFO",
+    "Successfully registered 0 JIRA tools"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : register_tools"
+   ]
+  ],
+  "registered_in_order": []
+ },
+ "subset_in_listed_order": {
+  "attribute_absent": false,
+  "enabled": [
+   "jira-getIssue",
+   "jira-addComment"
+  ],
+  "logs": [
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  register_tools"
+   ],
+   [
+    "jira-mcp-server",
+    "INFO",
+    "Registering JIRA tools: ['jira-getIssue', 'jira-addComment']"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_get_issue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_get_issue"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-getIssue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_add_comment"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_add_comment"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-addComment"
+   ],
+   [
+    "jira-mcp-server",
+    "INFO",
+    "Successfully registered 2 JIRA tools"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : register_tools"
+   ]
+  ],
+  "registered_in_order": [
+   "jira-getIssue",
+   "jira-addComment"
+  ]
+ },
+ "subset_in_reversed_order": {
+  "attribute_absent": false,
+  "enabled": [
+   "jira-addComment",
+   "jira-getIssue"
+  ],
+  "logs": [
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  register_tools"
+   ],
+   [
+    "jira-mcp-server",
+    "INFO",
+    "Registering JIRA tools: ['jira-addComment', 'jira-getIssue']"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_add_comment"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_add_comment"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-addComment"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_get_issue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_get_issue"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-getIssue"
+   ],
+   [
+    "jira-mcp-server",
+    "INFO",
+    "Successfully registered 2 JIRA tools"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : register_tools"
+   ]
+  ],
+  "registered_in_order": [
+   "jira-addComment",
+   "jira-getIssue"
+  ]
+ },
+ "unknown_name_is_warned_and_skipped": {
+  "attribute_absent": false,
+  "enabled": [
+   "jira-getIssue",
+   "jira-nope",
+   "jira-addComment"
+  ],
+  "logs": [
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  register_tools"
+   ],
+   [
+    "jira-mcp-server",
+    "INFO",
+    "Registering JIRA tools: ['jira-getIssue', 'jira-nope', 'jira-addComment']"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_get_issue"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_get_issue"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-getIssue"
+   ],
+   [
+    "jira-mcp-server",
+    "WARNING",
+    "Unknown tool requested: jira-nope. Available tools: ['jira-createIssue', 'jira-updateIssue', 'jira-linkIssueToEpic', 'jira-addComment', 'jira-addCommentWithLinks', 'jira-getIssue', 'jira-getIssuesBulk', 'jira-searchIssues', 'jira-createIssuesBulk', 'jira-updateLabels', 'jira-addRemoteLink', 'jira-addAttachment', 'jira-transitionIssue']"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Entry :  _register_add_comment"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : _register_add_comment"
+   ],
+   [
+    "jira-mcp-server",
+    "DEBUG",
+    "Registered tool: jira-addComment"
+   ],
+   [
+    "jira-mcp-server",
+    "INFO",
+    "Successfully registered 2 JIRA tools"
+   ],
+   [
+    "src.tools.jira_tools",
+    "INFO",
+    "Exit : register_tools"
+   ]
+  ],
+  "registered_in_order": [
+   "jira-getIssue",
+   "jira-addComment"
+  ]
+ }
+}

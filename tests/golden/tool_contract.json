@@ -1,0 +1,1895 @@
+{
+ "bulk_normalization": [
+  {
+   "issues": [
+    "plain text"
+   ],
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "create_issues_bulk",
+     [
+      [
+       {
+        "summary": "plain text"
+       }
+      ]
+     ],
+     {}
+    ]
+   ],
+   "stdout": "Raw issues received: ['plain text']\nType of issues: <class 'list'>\nProcessing issue 0: plain text (type: <class 'str'>)\nNot valid JSON, treating as summary. Error: Expecting value: line 1 column 1 (char 0)\nFinal parsed issues: [{'summary': 'plain text'}]\n"
+  },
+  {
+   "issues": [
+    "{\"project_key\":\"A\",\"summary\":\"s\"}"
+   ],
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "create_issues_bulk",
+     [
+      [
+       {
+        "project_key": "A",
+        "summary": "s"
+       }
+      ]
+     ],
+     {}
+    ]
+   ],
+   "stdout": "Raw issues received: ['{\"project_key\":\"A\",\"summary\":\"s\"}']\nType of issues: <class 'list'>\nProcessing issue 0: {\"project_key\":\"A\",\"summary\":\"s\"} (type: <class 'str'>)\nParsed from JSON: {'project_key': 'A', 'summary': 's'}\nFinal parsed issues: [{'project_key': 'A', 'summary': 's'}]\n"
+  },
+  {
+   "issues": [
+    "{\"issues\":[{\"project_key\":\"A\",\"summary\":\"s1\"},{\"project_key\":\"A\",\"summary\":\"s2\"}]}"
+   ],
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "create_issues_bulk",
+     [
+      [
+       {
+        "project_key": "A",
+        "summary": "s1"
+       },
+       {
+        "project_key": "A",
+        "summary": "s2"
+       }
+      ]
+     ],
+     {}
+    ]
+   ],
+   "stdout": "Raw issues received: ['{\"issues\":[{\"project_key\":\"A\",\"summary\":\"s1\"},{\"project_key\":\"A\",\"summary\":\"s2\"}]}']\nType of issues: <class 'list'>\nProcessing issue 0: {\"issues\":[{\"project_key\":\"A\",\"summary\":\"s1\"},{\"project_key\":\"A\",\"summary\":\"s2\"}]} (type: <class 'str'>)\nParsed from JSON: {'issues': [{'project_key': 'A', 'summary': 's1'}, {'project_key': 'A', 'summary': 's2'}]}\nFound nested 'issues' key, extracting the list\nFinal parsed issues: [{'project_key': 'A', 'summary': 's1'}, {'project_key': 'A', 'summary': 's2'}]\n"
+  },
+  {
+   "issues": [
+    "{\"issues\":{\"project_key\":\"A\",\"summary\":\"x\"}}"
+   ],
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "create_issues_bulk",
+     [
+      [
+       {
+        "project_key": "A",
+        "summary": "x"
+       }
+      ]
+     ],
+     {}
+    ]
+   ],
+   "stdout": "Raw issues received: ['{\"issues\":{\"project_key\":\"A\",\"summary\":\"x\"}}']\nType of issues: <class 'list'>\nProcessing issue 0: {\"issues\":{\"project_key\":\"A\",\"summary\":\"x\"}} (type: <class 'str'>)\nParsed from JSON: {'issues': {'project_key': 'A', 'summary': 'x'}}\nFound nested 'issues' key, extracting the list\nFinal parsed issues: [{'project_key': 'A', 'summary': 'x'}]\n"
+  },
+  {
+   "issues": [
+    {
+     "issues": [
+      {
+       "a": 1
+      },
+      {
+       "b": 2
+      }
+     ]
+    }
+   ],
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "create_issues_bulk",
+     [
+      [
+       {
+        "a": 1
+       },
+       {
+        "b": 2
+       }
+      ]
+     ],
+     {}
+    ]
+   ],
+   "stdout": "Raw issues received: [{'issues': [{'a': 1}, {'b': 2}]}]\nType of issues: <class 'list'>\nProcessing issue 0: {'issues': [{'a': 1}, {'b': 2}]} (type: <class 'dict'>)\nAlready a dict: {'issues': [{'a': 1}, {'b': 2}]}\nFound nested 'issues' key in dict, extracting the list\nFinal parsed issues: [{'a': 1}, {'b': 2}]\n"
+  },
+  {
+   "issues": [
+    {
+     "issues": "not-a-list",
+     "summary": "s"
+    }
+   ],
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "create_issues_bulk",
+     [
+      [
+       {
+        "issues": "not-a-list",
+        "summary": "s"
+       }
+      ]
+     ],
+     {}
+    ]
+   ],
+   "stdout": "Raw issues received: [{'issues': 'not-a-list', 'summary': 's'}]\nType of issues: <class 'list'>\nProcessing issue 0: {'issues': 'not-a-list', 'summary': 's'} (type: <class 'dict'>)\nAlready a dict: {'issues': 'not-a-list', 'summary': 's'}\nFinal parsed issues: [{'issues': 'not-a-list', 'summary': 's'}]\n"
+  },
+  {
+   "issues": [
+    {
+     "project_key": "A",
+     "summary": "s"
+    },
+    "not json {",
+    5,
+    null,
+    3.5,
+    true
+   ],
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "create_issues_bulk",
+     [
+      [
+       {
+        "project_key": "A",
+        "summary": "s"
+       },
+       {
+        "summary": "not json {"
+       },
+       {
+        "summary": "5"
+       },
+       {
+        "summary": "None"
+       },
+       {
+        "summary": "3.5"
+       },
+       {
+        "summary": "True"
+       }
+      ]
+     ],
+     {}
+    ]
+   ],
+   "stdout": "Raw issues received: [{'project_key': 'A', 'summary': 's'}, 'not json {', 5, None, 3.5, True]\nType of issues: <class 'list'>\nProcessing issue 0: {'project_key': 'A', 'summary': 's'} (type: <class 'dict'>)\nAlready a dict: {'project_key': 'A', 'summary': 's'}\nProcessing issue 1: not json { (type: <class 'str'>)\nNot valid JSON, treating as summary. Error: Expecting value: line 1 column 1 (char 0)\nProcessing issue 2: 5 (type: <class 'int'>)\nConverting to dict with summary: 5\nProcessing issue 3: None (type: <class 'NoneType'>)\nConverting to dict with summary: None\nProcessing issue 4: 3.5 (type: <class 'float'>)\nConverting to dict with summary: 3.5\nProcessing issue 5: True (type: <class 'bool'>)\nConverting to dict with summary: True\nFinal parsed issues: [{'project_key': 'A', 'summary': 's'}, {'summary': 'not json {'}, {'summary': '5'}, {'summary': 'None'}, {'summary': '3.5'}, {'summary': 'True'}]\n"
+  },
+  {
+   "issues": [
+    "[1,2,3]"
+   ],
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "create_issues_bulk",
+     [
+      [
+       [
+        1,
+        2,
+        3
+       ]
+      ]
+     ],
+     {}
+    ]
+   ],
+   "stdout": "Raw issues received: ['[1,2,3]']\nType of issues: <class 'list'>\nProcessing issue 0: [1,2,3] (type: <class 'str'>)\nParsed from JSON: [1, 2, 3]\nFinal parsed issues: [[1, 2, 3]]\n"
+  },
+  {
+   "issues": [
+    "\"just a json string\""
+   ],
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "create_issues_bulk",
+     [
+      [
+       "just a json string"
+      ]
+     ],
+     {}
+    ]
+   ],
+   "stdout": "Raw issues received: ['\"just a json string\"']\nType of issues: <class 'list'>\nProcessing issue 0: \"just a json string\" (type: <class 'str'>)\nParsed from JSON: just a json string\nFinal parsed issues: ['just a json string']\n"
+  },
+  {
+   "issues": [
+    "null"
+   ],
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "create_issues_bulk",
+     [
+      [
+       null
+      ]
+     ],
+     {}
+    ]
+   ],
+   "stdout": "Raw issues received: ['null']\nType of issues: <class 'list'>\nProcessing issue 0: null (type: <class 'str'>)\nParsed from JSON: None\nFinal parsed issues: [None]\n"
+  },
+  {
+   "issues": [],
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "create_issues_bulk",
+     [
+      []
+     ],
+     {}
+    ]
+   ],
+   "stdout": "Raw issues received: []\nType of issues: <class 'list'>\nFinal parsed issues: []\n"
+  },
+  {
+   "issues": [
+    {
+     "issue_type": "bug",
+     "labels": [
+      "x"
+     ],
+     "priority": "high",
+     "project_key": "A",
+     "summary": "s"
+    }
+   ],
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "create_issues_bulk",
+     [
+      [
+       {
+        "issue_type": "bug",
+        "labels": [
+         "x"
+        ],
+        "priority": "high",
+        "project_key": "A",
+        "summary": "s"
+       }
+      ]
+     ],
+     {}
+    ]
+   ],
+   "stdout": "Raw issues received: [{'project_key': 'A', 'summary': 's', 'labels': ['x'], 'priority': 'high', 'issue_type': 'bug'}]\nType of issues: <class 'list'>\nProcessing issue 0: {'project_key': 'A', 'summary': 's', 'labels': ['x'], 'priority': 'high', 'issue_type': 'bug'} (type: <class 'dict'>)\nAlready a dict: {'project_key': 'A', 'summary': 's', 'labels': ['x'], 'priority': 'high', 'issue_type': 'bug'}\nFinal parsed issues: [{'project_key': 'A', 'summary': 's', 'labels': ['x'], 'priority': 'high', 'issue_type': 'bug'}]\n"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "validation-msg"
+    ]
+   },
+   "service_raises": "JiraValidationError",
+   "stdout": "Raw issues received: ['x']\nType of issues: <class 'list'>\nProcessing issue 0: x (type: <class 'str'>)\nNot valid JSON, treating as summary. Error: Expecting value: line 1 column 1 (char 0)\nFinal parsed issues: [{'summary': 'x'}]\n"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Bulk creation failed: runtime-msg"
+    ]
+   },
+   "service_raises": "RuntimeError",
+   "stdout": "Raw issues received: ['x']\nType of issues: <class 'list'>\nProcessing issue 0: x (type: <class 'str'>)\nNot valid JSON, treating as summary. Error: Expecting value: line 1 column 1 (char 0)\nFinal parsed issues: [{'summary': 'x'}]\nUnexpected error: runtime-msg\n"
+  }
+ ],
+ "delegation": [
+  {
+   "args": {
+    "project_key": "TST",
+    "summary": "s"
+   },
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "create_issue",
+     [
+      "TST",
+      "s",
+      "",
+      null,
+      "story",
+      null,
+      null,
+      null
+     ],
+     {}
+    ]
+   ],
+   "stdout": "Creating issue with: TST s  None story None None None\n",
+   "tool": "jira-createIssue"
+  },
+  {
+   "args": {
+    "description": "d",
+    "epic_name": "E",
+    "issue_type": "Bug",
+    "labels": [
+     "a"
+    ],
+    "parent": "P-1",
+    "priority": "High",
+    "project_key": "TST",
+    "summary": "s"
+   },
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "create_issue",
+     [
+      "TST",
+      "s",
+      "d",
+      "High",
+      "Bug",
+      "E",
+      [
+       "a"
+      ],
+      "P-1"
+     ],
+     {}
+    ]
+   ],
+   "stdout": "Creating issue with: TST s d High Bug E ['a'] P-1\n",
+   "tool": "jira-createIssue"
+  },
+  {
+   "args": {
+    "issue_key": "TST-1",
+    "summary": "x"
+   },
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "update_issue",
+     [
+      "TST-1",
+      "x",
+      null,
+      null
+     ],
+     {}
+    ]
+   ],
+   "stdout": "",
+   "tool": "jira-updateIssue"
+  },
+  {
+   "args": {
+    "epic_key": "EP-1",
+    "issue_key": "TST-1"
+   },
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "link_issue_to_epic",
+     [
+      "TST-1",
+      "EP-1"
+     ],
+     {}
+    ]
+   ],
+   "stdout": "Linking issue to epic with: TST-1 EP-1\n",
+   "tool": "jira-linkIssueToEpic"
+  },
+  {
+   "args": {
+    "comment": "c",
+    "issue_key": "TST-1"
+   },
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "add_comment",
+     [
+      "TST-1",
+      "c"
+     ],
+     {}
+    ]
+   ],
+   "stdout": "",
+   "tool": "jira-addComment"
+  },
+  {
+   "args": {
+    "issue_key": "T-1",
+    "target_status": "Done"
+   },
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "transition_issue",
+     [
+      "T-1",
+      "Done"
+     ],
+     {}
+    ]
+   ],
+   "stdout": "",
+   "tool": "jira-transitionIssue"
+  },
+  {
+   "args": {
+    "intro_text": "i",
+    "issue_key": "TST-1",
+    "links": [
+     {
+      "text": "a",
+      "url": "https://u"
+     }
+    ]
+   },
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "add_comment_with_links",
+     [
+      "TST-1",
+      "i",
+      [
+       {
+        "text": "a",
+        "url": "https://u"
+       }
+      ]
+     ],
+     {}
+    ]
+   ],
+   "stdout": "",
+   "tool": "jira-addCommentWithLinks"
+  },
+  {
+   "args": {
+    "issue_key": "TST-1"
+   },
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "update_labels",
+     [
+      "TST-1",
+      [],
+      []
+     ],
+     {}
+    ]
+   ],
+   "stdout": "",
+   "tool": "jira-updateLabels"
+  },
+  {
+   "args": {
+    "add_labels": [
+     "a"
+    ],
+    "issue_key": "TST-1",
+    "remove_labels": [
+     "b"
+    ]
+   },
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "update_labels",
+     [
+      "TST-1",
+      [
+       "a"
+      ],
+      [
+       "b"
+      ]
+     ],
+     {}
+    ]
+   ],
+   "stdout": "",
+   "tool": "jira-updateLabels"
+  },
+  {
+   "args": {
+    "issue_key": "TST-1",
+    "title": "t",
+    "url": "https://u"
+   },
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "add_remote_link",
+     [
+      "TST-1",
+      "https://u",
+      "t"
+     ],
+     {}
+    ]
+   ],
+   "stdout": "",
+   "tool": "jira-addRemoteLink"
+  },
+  {
+   "args": {
+    "content_base64": "aGk=",
+    "filename": "f.txt",
+    "issue_key": "TST-1",
+    "mime_type": "text/plain"
+   },
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "add_attachment",
+     [
+      "TST-1",
+      null,
+      "f.txt",
+      "aGk=",
+      "text/plain"
+     ],
+     {}
+    ]
+   ],
+   "stdout": "",
+   "tool": "jira-addAttachment"
+  },
+  {
+   "args": {
+    "file_path": "/tmp/x",
+    "issue_key": "TST-1"
+   },
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "add_attachment",
+     [
+      "TST-1",
+      "/tmp/x",
+      null,
+      null,
+      null
+     ],
+     {}
+    ]
+   ],
+   "stdout": "",
+   "tool": "jira-addAttachment"
+  },
+  {
+   "args": {
+    "issue_key": "TST-1"
+   },
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "get_issue",
+     [
+      "TST-1"
+     ],
+     {}
+    ]
+   ],
+   "stdout": "",
+   "tool": "jira-getIssue"
+  },
+  {
+   "args": {
+    "project_key": "PRJ"
+   },
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "get_issues_bulk",
+     [
+      "PRJ",
+      null,
+      true
+     ],
+     {}
+    ]
+   ],
+   "stdout": "",
+   "tool": "jira-getIssuesBulk"
+  },
+  {
+   "args": {
+    "fetch_all": false,
+    "max_results": 5,
+    "project_key": "PRJ"
+   },
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "get_issues_bulk",
+     [
+      "PRJ",
+      5,
+      false
+     ],
+     {}
+    ]
+   ],
+   "stdout": "",
+   "tool": "jira-getIssuesBulk"
+  },
+  {
+   "args": {
+    "jql": "project = X"
+   },
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "search_issues",
+     [
+      "project = X",
+      0
+     ],
+     {}
+    ]
+   ],
+   "stdout": "",
+   "tool": "jira-searchIssues"
+  },
+  {
+   "args": {
+    "jql": "project = X",
+    "max_results": 3
+   },
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "search_issues",
+     [
+      "project = X",
+      3
+     ],
+     {}
+    ]
+   ],
+   "stdout": "",
+   "tool": "jira-searchIssues"
+  },
+  {
+   "args": {
+    "issues": [
+     {
+      "project_key": "A",
+      "summary": "s"
+     }
+    ]
+   },
+   "outcome": {
+    "ok": [
+     "{\"stub\": true}"
+    ]
+   },
+   "service_calls": [
+    [
+     "create_issues_bulk",
+     [
+      [
+       {
+        "project_key": "A",
+        "summary": "s"
+       }
+      ]
+     ],
+     {}
+    ]
+   ],
+   "stdout": "Raw issues received: [{'project_key': 'A', 'summary': 's'}]\nType of issues: <class 'list'>\nProcessing issue 0: {'project_key': 'A', 'summary': 's'} (type: <class 'dict'>)\nAlready a dict: {'project_key': 'A', 'summary': 's'}\nFinal parsed issues: [{'project_key': 'A', 'summary': 's'}]\n",
+   "tool": "jira-createIssuesBulk"
+  }
+ ],
+ "error_mapping": [
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "validation-msg"
+    ]
+   },
+   "raises": "JiraValidationError",
+   "stdout": "Creating issue with: TST s  None story None None None\n",
+   "tool": "jira-createIssue"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Error calling tool 'jira-createIssue': runtime-msg"
+    ]
+   },
+   "raises": "RuntimeError",
+   "stdout": "Creating issue with: TST s  None story None None None\n",
+   "tool": "jira-createIssue"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "validation-msg"
+    ]
+   },
+   "raises": "JiraValidationError",
+   "stdout": "",
+   "tool": "jira-updateIssue"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Error calling tool 'jira-updateIssue': runtime-msg"
+    ]
+   },
+   "raises": "RuntimeError",
+   "stdout": "",
+   "tool": "jira-updateIssue"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Error calling tool 'jira-linkIssueToEpic': validation-msg"
+    ]
+   },
+   "raises": "JiraValidationError",
+   "stdout": "Linking issue to epic with: TST-1 EP-1\n",
+   "tool": "jira-linkIssueToEpic"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Error calling tool 'jira-linkIssueToEpic': runtime-msg"
+    ]
+   },
+   "raises": "RuntimeError",
+   "stdout": "Linking issue to epic with: TST-1 EP-1\n",
+   "tool": "jira-linkIssueToEpic"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Error calling tool 'jira-addComment': validation-msg"
+    ]
+   },
+   "raises": "JiraValidationError",
+   "stdout": "",
+   "tool": "jira-addComment"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Error calling tool 'jira-addComment': runtime-msg"
+    ]
+   },
+   "raises": "RuntimeError",
+   "stdout": "",
+   "tool": "jira-addComment"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "validation-msg"
+    ]
+   },
+   "raises": "JiraValidationError",
+   "stdout": "",
+   "tool": "jira-transitionIssue"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Error calling tool 'jira-transitionIssue': runtime-msg"
+    ]
+   },
+   "raises": "RuntimeError",
+   "stdout": "",
+   "tool": "jira-transitionIssue"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Error calling tool 'jira-addCommentWithLinks': validation-msg"
+    ]
+   },
+   "raises": "JiraValidationError",
+   "stdout": "",
+   "tool": "jira-addCommentWithLinks"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Error calling tool 'jira-addCommentWithLinks': runtime-msg"
+    ]
+   },
+   "raises": "RuntimeError",
+   "stdout": "",
+   "tool": "jira-addCommentWithLinks"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Error calling tool 'jira-updateLabels': validation-msg"
+    ]
+   },
+   "raises": "JiraValidationError",
+   "stdout": "",
+   "tool": "jira-updateLabels"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Error calling tool 'jira-updateLabels': runtime-msg"
+    ]
+   },
+   "raises": "RuntimeError",
+   "stdout": "",
+   "tool": "jira-updateLabels"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Error calling tool 'jira-addRemoteLink': validation-msg"
+    ]
+   },
+   "raises": "JiraValidationError",
+   "stdout": "",
+   "tool": "jira-addRemoteLink"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Error calling tool 'jira-addRemoteLink': runtime-msg"
+    ]
+   },
+   "raises": "RuntimeError",
+   "stdout": "",
+   "tool": "jira-addRemoteLink"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "validation-msg"
+    ]
+   },
+   "raises": "JiraValidationError",
+   "stdout": "",
+   "tool": "jira-addAttachment"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Error calling tool 'jira-addAttachment': runtime-msg"
+    ]
+   },
+   "raises": "RuntimeError",
+   "stdout": "",
+   "tool": "jira-addAttachment"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Error calling tool 'jira-getIssue': validation-msg"
+    ]
+   },
+   "raises": "JiraValidationError",
+   "stdout": "",
+   "tool": "jira-getIssue"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Error calling tool 'jira-getIssue': runtime-msg"
+    ]
+   },
+   "raises": "RuntimeError",
+   "stdout": "",
+   "tool": "jira-getIssue"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Error calling tool 'jira-getIssuesBulk': validation-msg"
+    ]
+   },
+   "raises": "JiraValidationError",
+   "stdout": "",
+   "tool": "jira-getIssuesBulk"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Error calling tool 'jira-getIssuesBulk': runtime-msg"
+    ]
+   },
+   "raises": "RuntimeError",
+   "stdout": "",
+   "tool": "jira-getIssuesBulk"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Error calling tool 'jira-searchIssues': validation-msg"
+    ]
+   },
+   "raises": "JiraValidationError",
+   "stdout": "",
+   "tool": "jira-searchIssues"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Error calling tool 'jira-searchIssues': runtime-msg"
+    ]
+   },
+   "raises": "RuntimeError",
+   "stdout": "",
+   "tool": "jira-searchIssues"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "validation-msg"
+    ]
+   },
+   "raises": "JiraValidationError",
+   "stdout": "Raw issues received: [{'project_key': 'A', 'summary': 's'}]\nType of issues: <class 'list'>\nProcessing issue 0: {'project_key': 'A', 'summary': 's'} (type: <class 'dict'>)\nAlready a dict: {'project_key': 'A', 'summary': 's'}\nFinal parsed issues: [{'project_key': 'A', 'summary': 's'}]\n",
+   "tool": "jira-createIssuesBulk"
+  },
+  {
+   "outcome": {
+    "error": [
+     "ToolError",
+     "Bulk creation failed: runtime-msg"
+    ]
+   },
+   "raises": "RuntimeError",
+   "stdout": "Raw issues received: [{'project_key': 'A', 'summary': 's'}]\nType of issues: <class 'list'>\nProcessing issue 0: {'project_key': 'A', 'summary': 's'} (type: <class 'dict'>)\nAlready a dict: {'project_key': 'A', 'summary': 's'}\nFinal parsed issues: [{'project_key': 'A', 'summary': 's'}]\nUnexpected error: runtime-msg\n",
+   "tool": "jira-createIssuesBulk"
+  }
+ ],
+ "tools": [
+  {
+   "annotations": null,
+   "description": "Creates a new Jira issue in the given project. Use 'epic' as the issue_type to create an Epic. Supports optional priority, epic name, labels, and parent (to link to an epic or parent issue at creation time). project_key is required - there is no default project, so the caller must always specify which Jira project the issue belongs to.",
+   "execution": null,
+   "icons": null,
+   "inputSchema": {
+    "additionalProperties": false,
+    "properties": {
+     "description": {
+      "default": "",
+      "description": "Detailed description (optional)",
+      "type": "string"
+     },
+     "epic_name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "description": "Name of the epic (required if issue_type is 'epic')"
+     },
+     "issue_type": {
+      "default": "story",
+      "description": "Jira issue type (e.g., 'Task', 'Sub-task', 'Story', 'Bug', 'Epic', 'Feature', 'Chore)",
+      "type": "string"
+     },
+     "labels": {
+      "anyOf": [
+       {
+        "items": {},
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "description": "List of labels to add to the issue (e.g., ['backend', 'urgent'])"
+     },
+     "parent": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "description": "Parent issue key (e.g., epic key like 'PROJ-123') to link this issue at creation time"
+     },
+     "priority": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "description": "Priority (e.g., 'Highest', 'High', 'Medium', 'Low', 'Lowest')"
+     },
+     "project_key": {
+      "description": "Target Jira project key (e.g., 'RET'). Required - there is no default project.",
+      "type": "string"
+     },
+     "summary": {
+      "description": "Short title for the issue",
+      "type": "string"
+     }
+    },
+    "required": [
+     "project_key",
+     "summary"
+    ],
+    "type": "object"
+   },
+   "meta": {
+    "fastmcp": {
+     "tags": [
+      "jira",
+      "write"
+     ]
+    }
+   },
+   "name": "jira-createIssue",
+   "outputSchema": {
+    "properties": {
+     "result": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "result"
+    ],
+    "type": "object",
+    "x-fastmcp-wrap-result": true
+   },
+   "title": null
+  },
+  {
+   "annotations": null,
+   "description": "Updates summary, description, or priority for an existing Jira issue. Provide at least one field to update.",
+   "execution": null,
+   "icons": null,
+   "inputSchema": {
+    "additionalProperties": false,
+    "properties": {
+     "description": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "description": "Detailed description to update"
+     },
+     "issue_key": {
+      "description": "Issue key to update",
+      "type": "string"
+     },
+     "priority": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "description": "Priority to update (e.g., 'Highest', 'High', 'Medium', 'Low', 'Lowest')"
+     },
+     "summary": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "description": "title for the issue to update"
+     }
+    },
+    "required": [
+     "issue_key"
+    ],
+    "type": "object"
+   },
+   "meta": {
+    "fastmcp": {
+     "tags": [
+      "jira",
+      "write"
+     ]
+    }
+   },
+   "name": "jira-updateIssue",
+   "outputSchema": {
+    "properties": {
+     "result": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "result"
+    ],
+    "type": "object",
+    "x-fastmcp-wrap-result": true
+   },
+   "title": null
+  },
+  {
+   "annotations": null,
+   "description": "Fetches details of a specific Jira issue by its issue key. Returns key, summary, status, priority, description, labels, and parent (if linked to a parent issue/epic).",
+   "execution": null,
+   "icons": null,
+   "inputSchema": {
+    "additionalProperties": false,
+    "properties": {
+     "issue_key": {
+      "description": "Jira issue key",
+      "type": "string"
+     }
+    },
+    "required": [
+     "issue_key"
+    ],
+    "type": "object"
+   },
+   "meta": {
+    "fastmcp": {
+     "tags": [
+      "jira",
+      "read"
+     ]
+    }
+   },
+   "name": "jira-getIssue",
+   "outputSchema": {
+    "properties": {
+     "result": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "result"
+    ],
+    "type": "object",
+    "x-fastmcp-wrap-result": true
+   },
+   "title": null
+  },
+  {
+   "annotations": null,
+   "description": "Fetches detailed information for issues from a Jira project OR epic. Supports TWO modes: 1) Project mode: Provide project key (e.g., 'RET') to fetch ALL issues in the project. 2) Epic mode: Provide epic key (e.g., 'RET-424') to fetch the epic AND all child issues under it. Returns key, summary, status, priority, description, labels, parent, issue_type, created, and updated for each issue. Automatically paginates through all issues in batches of 100.",
+   "execution": null,
+   "icons": null,
+   "inputSchema": {
+    "additionalProperties": false,
+    "properties": {
+     "fetch_all": {
+      "default": true,
+      "description": "If True, automatically paginates through all issues (default: True). Set to False to fetch only first 100.",
+      "type": "boolean"
+     },
+     "max_results": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "description": "Maximum number of results to return. If not specified, fetches ALL issues using automatic pagination."
+     },
+     "project_key": {
+      "description": "Project key (e.g., 'RET') to fetch all project issues, OR Epic key (e.g., 'RET-424') to fetch epic and its children",
+      "type": "string"
+     }
+    },
+    "required": [
+     "project_key"
+    ],
+    "type": "object"
+   },
+   "meta": {
+    "fastmcp": {
+     "tags": [
+      "bulk",
+      "jira",
+      "read"
+     ]
+    }
+   },
+   "name": "jira-getIssuesBulk",
+   "outputSchema": {
+    "properties": {
+     "result": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "result"
+    ],
+    "type": "object",
+    "x-fastmcp-wrap-result": true
+   },
+   "title": null
+  },
+  {
+   "annotations": null,
+   "description": "Creates multiple Jira issues in bulk. Accepts a list of issue objects, each with project_key (required) and summary (required), plus optional description, issue_type, priority, epic_name (for epics), labels, and parent (to link to an epic or parent issue). There is no default project - every issue in the list must specify its own project_key (they may target different projects in the same call).",
+   "execution": null,
+   "icons": null,
+   "inputSchema": {
+    "additionalProperties": false,
+    "properties": {
+     "issues": {
+      "description": "List of issue objects to create. Each object must contain: project_key (required, no default project), summary (required), description (optional), issue_type (optional, default='story'), priority (optional), epic_name (optional, for epics only), labels (optional, list of strings), parent (optional, parent issue key)",
+      "items": {},
+      "type": "array"
+     }
+    },
+    "required": [
+     "issues"
+    ],
+    "type": "object"
+   },
+   "meta": {
+    "fastmcp": {
+     "tags": [
+      "bulk",
+      "jira",
+      "write"
+     ]
+    }
+   },
+   "name": "jira-createIssuesBulk",
+   "outputSchema": {
+    "properties": {
+     "result": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "result"
+    ],
+    "type": "object",
+    "x-fastmcp-wrap-result": true
+   },
+   "title": null
+  },
+  {
+   "annotations": null,
+   "description": "Links an existing Jira issue (story or task) to a specified Epic.",
+   "execution": null,
+   "icons": null,
+   "inputSchema": {
+    "additionalProperties": false,
+    "properties": {
+     "epic_key": {
+      "description": "Epic issue key",
+      "type": "string"
+     },
+     "issue_key": {
+      "description": "Story/task issue key",
+      "type": "string"
+     }
+    },
+    "required": [
+     "issue_key",
+     "epic_key"
+    ],
+    "type": "object"
+   },
+   "meta": {
+    "fastmcp": {
+     "tags": [
+      "jira",
+      "write"
+     ]
+    }
+   },
+   "name": "jira-linkIssueToEpic",
+   "outputSchema": {
+    "properties": {
+     "result": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "result"
+    ],
+    "type": "object",
+    "x-fastmcp-wrap-result": true
+   },
+   "title": null
+  },
+  {
+   "annotations": null,
+   "description": "Adds a comment to an existing Jira issue.",
+   "execution": null,
+   "icons": null,
+   "inputSchema": {
+    "additionalProperties": false,
+    "properties": {
+     "comment": {
+      "description": "Text to add as comment",
+      "type": "string"
+     },
+     "issue_key": {
+      "description": "Jira issue key",
+      "type": "string"
+     }
+    },
+    "required": [
+     "issue_key",
+     "comment"
+    ],
+    "type": "object"
+   },
+   "meta": {
+    "fastmcp": {
+     "tags": [
+      "jira",
+      "write"
+     ]
+    }
+   },
+   "name": "jira-addComment",
+   "outputSchema": {
+    "properties": {
+     "result": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "result"
+    ],
+    "type": "object",
+    "x-fastmcp-wrap-result": true
+   },
+   "title": null
+  },
+  {
+   "annotations": null,
+   "description": "Adds a comment to a Jira issue where specific text segments render as real clickable links, e.g. linking each TestRail case ID to its actual case page.",
+   "execution": null,
+   "icons": null,
+   "inputSchema": {
+    "additionalProperties": false,
+    "properties": {
+     "intro_text": {
+      "description": "Plain text shown before the links",
+      "type": "string"
+     },
+     "issue_key": {
+      "description": "Jira issue key",
+      "type": "string"
+     },
+     "links": {
+      "description": "List of {text, url} objects, each rendered as a clickable link",
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "type": "array"
+     }
+    },
+    "required": [
+     "issue_key",
+     "intro_text",
+     "links"
+    ],
+    "type": "object"
+   },
+   "meta": {
+    "fastmcp": {
+     "tags": [
+      "jira",
+      "write"
+     ]
+    }
+   },
+   "name": "jira-addCommentWithLinks",
+   "outputSchema": {
+    "properties": {
+     "result": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "result"
+    ],
+    "type": "object",
+    "x-fastmcp-wrap-result": true
+   },
+   "title": null
+  },
+  {
+   "annotations": null,
+   "description": "Searches Jira using a JQL query. Returns ALL matching issues (paginates automatically) unless max_results is explicitly set to cap it.",
+   "execution": null,
+   "icons": null,
+   "inputSchema": {
+    "additionalProperties": false,
+    "properties": {
+     "jql": {
+      "description": "JQL query",
+      "type": "string"
+     },
+     "max_results": {
+      "default": 0,
+      "description": "Optional cap on results - 0 (default) fetches everything",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "jql"
+    ],
+    "type": "object"
+   },
+   "meta": {
+    "fastmcp": {
+     "tags": [
+      "jira",
+      "read"
+     ]
+    }
+   },
+   "name": "jira-searchIssues",
+   "outputSchema": {
+    "properties": {
+     "result": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "result"
+    ],
+    "type": "object",
+    "x-fastmcp-wrap-result": true
+   },
+   "title": null
+  },
+  {
+   "annotations": null,
+   "description": "Adds and/or removes specific labels on a Jira issue, without touching any other labels already there.",
+   "execution": null,
+   "icons": null,
+   "inputSchema": {
+    "additionalProperties": false,
+    "properties": {
+     "add_labels": {
+      "default": [],
+      "description": "Labels to add",
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     },
+     "issue_key": {
+      "description": "Jira issue key",
+      "type": "string"
+     },
+     "remove_labels": {
+      "default": [],
+      "description": "Labels to remove",
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     }
+    },
+    "required": [
+     "issue_key"
+    ],
+    "type": "object"
+   },
+   "meta": {
+    "fastmcp": {
+     "tags": [
+      "jira",
+      "write"
+     ]
+    }
+   },
+   "name": "jira-updateLabels",
+   "outputSchema": {
+    "properties": {
+     "result": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "result"
+    ],
+    "type": "object",
+    "x-fastmcp-wrap-result": true
+   },
+   "title": null
+  },
+  {
+   "annotations": null,
+   "description": "Adds a real clickable remote link (e.g. to a TestRail case) to a Jira issue - not a text comment, a proper link object.",
+   "execution": null,
+   "icons": null,
+   "inputSchema": {
+    "additionalProperties": false,
+    "properties": {
+     "issue_key": {
+      "description": "Jira issue key",
+      "type": "string"
+     },
+     "title": {
+      "description": "Display title for the link",
+      "type": "string"
+     },
+     "url": {
+      "description": "The external URL to link to",
+      "type": "string"
+     }
+    },
+    "required": [
+     "issue_key",
+     "url",
+     "title"
+    ],
+    "type": "object"
+   },
+   "meta": {
+    "fastmcp": {
+     "tags": [
+      "jira",
+      "write"
+     ]
+    }
+   },
+   "name": "jira-addRemoteLink",
+   "outputSchema": {
+    "properties": {
+     "result": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "result"
+    ],
+    "type": "object",
+    "x-fastmcp-wrap-result": true
+   },
+   "title": null
+  },
+  {
+   "annotations": null,
+   "description": "Attaches a file to an existing Jira issue (Epics included). Provide EITHER file_path (a path to a local file on this server's disk) OR content_base64 + filename (in-memory bytes, base64-encoded \u2014 use this for generated content like a PDF report that never touches disk). Exactly one of file_path / content_base64 is required.",
+   "execution": null,
+   "icons": null,
+   "inputSchema": {
+    "additionalProperties": false,
+    "properties": {
+     "content_base64": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "description": "Base64-encoded file content to attach directly, without a local file (mutually exclusive with file_path)"
+     },
+     "file_path": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "description": "Path to a local file to attach (mutually exclusive with content_base64)"
+     },
+     "filename": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "description": "Filename for the attachment. Optional with file_path (defaults to the file's own name); required with content_base64."
+     },
+     "issue_key": {
+      "description": "Jira issue key",
+      "type": "string"
+     },
+     "mime_type": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "description": "MIME type of the content, e.g. 'application/pdf' (only used with content_base64)"
+     }
+    },
+    "required": [
+     "issue_key"
+    ],
+    "type": "object"
+   },
+   "meta": {
+    "fastmcp": {
+     "tags": [
+      "jira",
+      "write"
+     ]
+    }
+   },
+   "name": "jira-addAttachment",
+   "outputSchema": {
+    "properties": {
+     "result": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "result"
+    ],
+    "type": "object",
+    "x-fastmcp-wrap-result": true
+   },
+   "title": null
+  },
+  {
+   "annotations": null,
+   "description": "Moves a Jira issue to a target status (e.g. 'In Progress' -> 'Done') by resolving the real Jira transition ID from the issue's available transitions. Idempotent: if the issue is already in the target status, returns result 'already_done' without changing anything. Fails with a clear error if no transition to the target status is available.",
+   "execution": null,
+   "icons": null,
+   "inputSchema": {
+    "additionalProperties": false,
+    "properties": {
+     "issue_key": {
+      "description": "Jira issue key to transition (e.g., 'PROJ-123')",
+      "type": "string"
+     },
+     "target_status": {
+      "description": "Name of the status to move the issue to (e.g., 'Done')",
+      "type": "string"
+     }
+    },
+    "required": [
+     "issue_key",
+     "target_status"
+    ],
+    "type": "object"
+   },
+   "meta": {
+    "fastmcp": {
+     "tags": [
+      "jira",
+      "write"
+     ]
+    }
+   },
+   "name": "jira-transitionIssue",
+   "outputSchema": {
+    "properties": {
+     "result": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "result"
+    ],
+    "type": "object",
+    "x-fastmcp-wrap-result": true
+   },
+   "title": null
+  }
+ ]
+}

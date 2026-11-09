@@ -1,0 +1,1 @@
+# pdlc-jira-mcp-server

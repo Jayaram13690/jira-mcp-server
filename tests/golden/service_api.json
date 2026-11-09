@@ -1,0 +1,20 @@
+{
+ "public_methods": {
+  "add_attachment": "(self, key: str, file_path: str | None = None, filename: str | None = None, content_base64: str | None = None, mime_type: str | None = None) -> str",
+  "add_comment": "(self, key: str, comment: str) -> str",
+  "add_comment_with_links": "(self, key: str, intro_text: str, links: list[dict]) -> str",
+  "add_remote_link": "(self, key: str, url: str, title: str) -> str",
+  "create_issue": "(self, project_key: str, summary: str, description: str, priority: str | None, issue_type: str, epic_name: str | None, labels: list[str] | None = None, parent: str | None = None) -> str",
+  "create_issues_bulk": "(self, issues: list[dict[str, typing.Any]]) -> str",
+  "get_issue": "(self, key: str) -> str",
+  "get_issue_types": "(self, project_key: str) -> dict[str, str]",
+  "get_issues_bulk": "(self, project_key: str, max_results: int = None, fetch_all: bool = True) -> str",
+  "get_priorities": "(self) -> list[str]",
+  "link_issue_to_epic": "(self, issue_key: str, epic_key: str) -> str",
+  "search_issues": "(self, jql: str, max_results: int = 0) -> str",
+  "transition_issue": "(self, key: str, target_status: str) -> str",
+  "update_issue": "(self, key: str, summary: str | None, description: str | None, priority: str | None) -> str",
+  "update_labels": "(self, key: str, add_labels: list[str] | None = None, remove_labels: list[str] | None = None) -> str"
+ },
+ "source": "git b6fc26d JiraService public methods"
+}

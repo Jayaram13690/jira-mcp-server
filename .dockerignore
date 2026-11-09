@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.git/
+tests/
+test.py
+deployed-mcp-test.py
+.env
+check_app_config.py
+test_local_transition.py
+test_deployment.py
